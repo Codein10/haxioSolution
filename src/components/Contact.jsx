@@ -101,18 +101,18 @@ const Contact = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-semibold">Phone</h3>
-                <p className="text-sm">+91-1234567890</p>
+                <p className="text-sm">+918960401450</p>
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Email</h3>
-                <p className="text-sm">contact@haxiosolution.com</p>
+                <p className="text-sm">haxiosolution@gmail.com</p>
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Address</h3>
                 <p className="text-sm">
                   Haxio Solution Pvt. Ltd.,
                   <br />
-                  123 Tech Park, Noida, Uttar Pradesh, India.
+                   Tech Park, mumbai, Maharastra, India.
                 </p>
               </div>
               <div>

@@ -12,18 +12,18 @@ const Footer = () => {
           <ul className="flex space-x-4 mb-4 md:mb-0">
             <li>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/haxio-solution/about/?viewAsMember=true"
                 className="hover:text-blue-400 transition duration-300"
               >
-                Home
+                LinkedIn
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="#"
                 className="hover:text-blue-400 transition duration-300"
               >
-                About
+                Instagram
               </a>
             </li>
             <li>
@@ -33,7 +33,7 @@ const Footer = () => {
               >
                 Contact
               </a>
-            </li>
+            </li> */}
           </ul>
 
           <p className="text-sm text-gray-400">
