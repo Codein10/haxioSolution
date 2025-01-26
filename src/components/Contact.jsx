@@ -1,7 +1,50 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 const Footer = lazy(() => import("../Footer"));
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState(null);
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus(null); // Reset status on new submission
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/message/get-in-touch",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" }); // Reset form
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus("error");
+    }
+  };
+
   return (
     <div className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 text-white min-h-screen">
       {/* Page Banner */}
@@ -24,12 +67,7 @@ const Contact = () => {
             <h2 className="text-2xl font-bold text-blue-600 mb-6">
               Get in Touch
             </h2>
-            <form
-              action="#"
-              method="POST"
-              className="space-y-6"
-              aria-label="Contact Form"
-            >
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -41,10 +79,11 @@ const Contact = () => {
                   type="text"
                   id="name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter your full name"
                   required
-                  aria-required="true"
                 />
               </div>
               <div>
@@ -58,10 +97,11 @@ const Contact = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter your email address"
                   required
-                  aria-required="true"
                 />
               </div>
               <div>
@@ -74,21 +114,31 @@ const Contact = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows="5"
                   className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Write your message"
                   required
-                  aria-required="true"
                 ></textarea>
               </div>
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300"
-                aria-label="Send Message"
               >
                 Send Message
               </button>
             </form>
+
+            {/* Status Message */}
+            {status === "success" && (
+              <p className="mt-4 text-green-600">Message sent successfully!</p>
+            )}
+            {status === "error" && (
+              <p className="mt-4 text-red-600">
+                Failed to send the message. Please try again.
+              </p>
+            )}
           </div>
 
           {/* Contact Information */}
@@ -112,7 +162,7 @@ const Contact = () => {
                 <p className="text-sm">
                   Haxio Solution Pvt. Ltd.,
                   <br />
-                   Tech Park, mumbai, Maharastra, India.
+                  Tech Park, Mumbai, Maharashtra, India.
                 </p>
               </div>
               <div>

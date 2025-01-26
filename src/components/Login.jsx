@@ -1,134 +1,122 @@
 import React, { useState } from "react";
-import axios from "axios";
 
-const LoginPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Login = ({ onLogin }) => {
+  const [isSignUp, setIsSignUp] = useState(false); // Toggle between Login and SignUp
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false); // To toggle between login and register
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  // Login handler
-  const handleLogin = async () => {
-    if (username.trim() === "" || password.trim() === "") {
-      setError("Both fields are required!");
-      return;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage(""); // Clear previous errors
+    setSuccessMessage(""); // Clear previous success messages
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username,
-        password,
+      const url = isSignUp
+        ? "http://localhost:5000/api/auth/register"
+        : "http://localhost:5000/api/auth/login";
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
       });
 
-      // Store JWT token in localStorage
-      localStorage.setItem("authToken", response.data.token);
+      const data = await response.json();
 
-      setIsLoggedIn(true);
-      setError("");
-    } catch (error) {
-      setError(error.response?.data?.error || "An error occurred during login");
-    }
-  };
+      if (!response.ok) {
+        // If the response is not OK, set the error message
+        setErrorMessage(data.error || "Operation failed. Please try again.");
+        return; // Stop execution if there's an error
+      }
 
-  // Register handler
-  const handleRegister = async () => {
-    if (username.trim() === "" || password.trim() === "") {
-      setError("Both fields are required!");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", {
-        username,
-        password,
-      });
-
-      setError("");
-      alert("User registered successfully! You can now login.");
-      setIsRegistering(false); // Switch back to login page after successful registration
-    } catch (error) {
-      setError(error.response?.data?.error || "An error occurred during registration");
-    }
-  };
-
-  // Logout handler
-  const handleLogout = async () => {
-    try {
-      // Optional: Send a request to invalidate the token
-      await axios.post(
-        "http://localhost:5000/api/auth/logout",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Send the stored JWT token
-          },
-        }
-      );
-
-      // Clear localStorage
-      localStorage.removeItem("authToken");
-      setIsLoggedIn(false);
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      setError(error.response?.data?.error || "An error occurred during logout");
-    }
+      if (isSignUp) {
+        // Handle sign-up success
+        setSuccessMessage("User registered successfully! Please log in.");
+        setIsSignUp(false); // Switch to login after successful signup
+      } else {
+        // Handle login success
+        localStorage.setItem("token", data.token);
+        setSuccessMessage("Login successful!");
+        onLogin(); // Notify the parent component about the login state
+      }
+    } catch (error) {}
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        {isLoggedIn ? (
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Welcome, {username}!</h1>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">{isRegistering ? "Register" : "Login"}</h1>
-            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-            <input
-              type="text"
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              aria-label="Email"
-            />
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              aria-label="Password"
-            />
-            <button
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-              onClick={isRegistering ? handleRegister : handleLogin}
-            >
-              {isRegistering ? "Register" : "Login"}
-            </button>
-
-            <div className="text-center mt-4">
-              <button
-                className="text-blue-500 hover:underline"
-                onClick={() => setIsRegistering(!isRegistering)} // Toggle between login and register
-              >
-                {isRegistering ? "Already have an account? Login" : "Don't have an account? Register"}
-              </button>
-            </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-lg w-96"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          {isSignUp ? "Sign Up" : "Login"}
+        </h2>
+        {errorMessage && (
+          <div className="mb-4 text-red-600 text-center">{errorMessage}</div>
+        )}
+        {successMessage && (
+          <div className="mb-4 text-green-600 text-center">
+            {successMessage}
           </div>
         )}
-      </div>
+        <div className="mb-4">
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300"
+        >
+          {isSignUp ? "Sign Up" : "Login"}
+        </button>
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-blue-500 hover:underline"
+          >
+            {isSignUp
+              ? "Already have an account? Login"
+              : "Don't have an account? Sign Up"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default Login;
