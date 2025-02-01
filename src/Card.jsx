@@ -61,10 +61,14 @@ const Card = () => {
                 Web Development
               </h2>
               <p className="text-gray-700 mb-6">
-                <span className="font-bold">
+                {/* <span className="font-bold">
                   Are you ready to dive into the world of web development and
                   build a strong foundation for your career?
-                </span>{" "}
+                </span>{" "} */}
+                <strong>
+                  Are you ready to dive into the world of web development and
+                  build a strong foundation for your career?
+                </strong>{" "}
                 Haxio Solution is thrilled to announce a Free Internship in Web
                 Development, designed to help aspiring developers gain
                 real-world experience, master essential skills, and create
