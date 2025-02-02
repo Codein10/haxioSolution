@@ -23,7 +23,7 @@ const Contact = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/message/get-in-touch",
+        "https://haxiob-4.onrender.com/api/message/get-in-touch",
         {
           method: "POST",
           headers: {

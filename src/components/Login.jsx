@@ -14,8 +14,8 @@ const Login = ({ onLogin }) => {
 
     try {
       const url = isSignUp
-        ? "http://localhost:5000/api/auth/register"
-        : "http://localhost:5000/api/auth/login";
+        ? "https://haxiob-4.onrender.com/api/auth/register"
+        : "https://haxiob-4.onrender.com/api/auth/login";
 
       const response = await fetch(url, {
         method: "POST",
