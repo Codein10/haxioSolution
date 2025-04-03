@@ -1,68 +1,41 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import SignUp from "./SignUp";
+import Home from "./Home";
 
-const Login = ({ onLogin }) => {
-  const [isSignUp, setIsSignUp] = useState(false); // Toggle between Login and SignUp
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+const Login = () => {
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage(""); // Clear previous errors
-    setSuccessMessage(""); // Clear previous success messages
-
-    try {
-      const url = isSignUp
-        ? "http://localhost:5000/api/auth/register"
-        : "http://localhost:5000/api/auth/login";
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // If the response is not OK, set the error message
-        setErrorMessage(data.error || "Operation failed. Please try again.");
-        return; // Stop execution if there's an error
-      }
-
-      if (isSignUp) {
-        // Handle sign-up success
-        setSuccessMessage("User registered successfully! Please log in.");
-        setIsSignUp(false); // Switch to login after successful signup
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [message, setMessage] = useState("")
+  const navigate = useNavigate()
+  const onSubmit = (data) => {
+    const saveData = localStorage.getItem("userData");
+    if (saveData) {
+      const { userName, password } = JSON.parse(saveData);
+      if (data.userName == userName && data.password == password) {
+        alert("Login successful! ✅")
+        setTimeout(() => navigate("/"), 1000);
+        setMessage("Login successful! ✅");
       } else {
-        // Handle login success
-        localStorage.setItem("token", data.token);
-        setSuccessMessage("Login successful!");
-        onLogin(); // Notify the parent component about the login state
+        alert("Invalid email or password ❌")
+        setMessage("Invalid Username or password ❌");
       }
-    } catch (error) {}
-  };
+    } else {
+      alert("No user found. Please sign up first.")
+      setMessage("No user found. Please sign up first.");
+    }
 
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-8 rounded-lg shadow-lg w-96"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {isSignUp ? "Sign Up" : "Login"}
-        </h2>
-        {errorMessage && (
-          <div className="mb-4 text-red-600 text-center">{errorMessage}</div>
-        )}
-        {successMessage && (
-          <div className="mb-4 text-green-600 text-center">
-            {successMessage}
-          </div>
-        )}
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <div className="mb-4">
           <label
             htmlFor="username"
@@ -73,10 +46,8 @@ const Login = ({ onLogin }) => {
           <input
             type="text"
             id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
             required
+            {...register("userName")}
             className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -90,10 +61,9 @@ const Login = ({ onLogin }) => {
           <input
             type="password"
             id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="password"
             required
+            {...register("password")}
             className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -101,17 +71,14 @@ const Login = ({ onLogin }) => {
           type="submit"
           className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-500 transition duration-300"
         >
-          {isSignUp ? "Sign Up" : "Login"}
+          Login
         </button>
         <div className="mt-4 text-center">
           <button
             type="button"
-            onClick={() => setIsSignUp(!isSignUp)}
             className="text-blue-500 hover:underline"
           >
-            {isSignUp
-              ? "Already have an account? Login"
-              : "Don't have an account? Sign Up"}
+            <span>Don't have an account? <Link to="/SignUp">Sign Up</Link></span>
           </button>
         </div>
       </form>
