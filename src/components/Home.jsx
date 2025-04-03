@@ -3,7 +3,6 @@ import About from "./About";
 import Banner from "../Banner";
 import Card from "../Card";
 import Footer from "../Footer";
-import Login from "../components/Login"
 const Home = () => {
   return (
     <>

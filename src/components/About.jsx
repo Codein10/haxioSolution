@@ -11,19 +11,41 @@ const About = () => {
           About Haxio Solution
         </h1>
         <p className="text-lg sm:text-xl leading-relaxed text-center mb-8">
-          Welcome to <span className="font-bold text-yellow-300">Haxio Solution</span>, where
-          innovation meets excellence. We specialize in creating transformative
-          websites and applications tailored to empower businesses in the digital era.
+          Welcome to{" "}
+          <span className="font-bold text-yellow-300">Haxio Solution</span>,
+          where innovation meets excellence. We specialize in creating
+          transformative websites and applications tailored to empower
+          businesses in the digital era.
         </p>
 
         {/* Mission Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-yellow-300">Our Mission</h2>
-            <p className="text-lg leading-relaxed">
-              To empower businesses by delivering innovative, reliable software solutions that
+            <h2 className="text-3xl text-center font-bold text-yellow-300">Our Mission</h2>
+            <p className="text-lg leading-relaxed text-center">
+              {/* To empower businesses by delivering innovative, reliable software solutions that
               foster growth, enhance efficiency, and add lasting value. We aim to bridge the gap
-              between vision and reality with precision and creativity.
+              between vision and reality with precision and creativity. */}
+              At Haxio Solution, our mission is to empower businesses with
+              cutting-edge technology by delivering high-quality, scalable, and
+              user-centric web and mobile solutions. We are committed to 
+              <br /><span className="text-lg text-yellow-400 ">Innovating with Excellence<hr className="border-2px m-2 "/></span>
+              Crafting modern, efficient, and
+              high-performing digital solutions tailored to business needs.
+             <br /><span className="text-lg text-yellow-400">Client-Centric Approach<hr className="border-2px m-2" /></span>
+             Understanding client requirements deeply
+              to provide customized and impactful solutions. 
+              <br /><span className="text-lg text-yellow-400"> Quality & Reliability<hr className="border-2px m-2" /></span>
+              Ensuring seamless performance, security, and
+              scalability in every project we undertake. 
+              <br /> <span className="text-lg text-yellow-400">Continuous Growth &Learning<hr className="border-2px m-2"/></span>
+              Staying ahead with the latest technologies and trends
+              to provide future-proof solutions. 
+              <br /><span className="text-lg text-yellow-400">Building Long-Term Partnerships<hr className="border-2px m-2"/></span>
+              Establishing trust and transparency with our
+              clients through exceptional service and support. At Haxio
+              Solution, we don’t just build websites and applications – we build
+              digital experiences that drive success!
             </p>
           </div>
           <div>
@@ -43,15 +65,24 @@ const About = () => {
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-lg text-center">
             <li className="bg-white bg-opacity-10 rounded-lg py-8 px-6 shadow-md hover:scale-105 transition-transform">
               <span className="text-xl font-semibold">Expert Team</span>
-              <p>Skilled developers and designers ready to bring your ideas to life.</p>
+              <p>
+                Skilled developers and designers ready to bring your ideas to
+                life.
+              </p>
             </li>
             <li className="bg-white bg-opacity-10 rounded-lg py-8 px-6 shadow-md hover:scale-105 transition-transform">
               <span className="text-xl font-semibold">Custom Solutions</span>
-              <p>Tailored software solutions to meet your specific business needs.</p>
+              <p>
+                Tailored software solutions to meet your specific business
+                needs.
+              </p>
             </li>
             <li className="bg-white bg-opacity-10 rounded-lg py-8 px-6 shadow-md hover:scale-105 transition-transform">
               <span className="text-xl font-semibold">Timely Delivery</span>
-              <p>Fast and efficient project delivery without compromising on quality.</p>
+              <p>
+                Fast and efficient project delivery without compromising on
+                quality.
+              </p>
             </li>
           </ul>
         </div>
@@ -62,8 +93,9 @@ const About = () => {
             Transform Your Vision into Reality
           </h3>
           <p className="text-lg leading-relaxed mb-6">
-            Partner with Haxio Solution to elevate your business with state-of-the-art technology.
-            Let’s collaborate and create impactful solutions together!
+            Partner with Haxio Solution to elevate your business with
+            state-of-the-art technology. Let’s collaborate and create impactful
+            solutions together!
           </p>
           <Link
             to="/contact"

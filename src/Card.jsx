@@ -1,5 +1,4 @@
 import React from "react";
-import Card1 from "./assets/Card-1.png";
 import Card2 from "./assets/Card-2.png";
 
 const Card = () => {

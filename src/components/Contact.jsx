@@ -162,7 +162,7 @@ const Contact = () => {
                 <p className="text-sm">
                   Haxio Solution Pvt. Ltd.,
                   <br />
-                  Tech Park, Mumbai, Maharashtra, India.
+                 Mumbai, Maharashtra, India.
                 </p>
               </div>
               <div>
