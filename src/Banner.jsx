@@ -19,10 +19,10 @@ const Banner = () => {
 
         {/* Text Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 sm:px-8">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-4 text-blue-900">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-4 text-white">
            <span> Welcome to </span> <span >Haxio</span> <span>Solution</span>
           </h1>
-          <p className="text-sm sm:text-lg lg:text-xl max-w-4xl text-blue-900">
+          <p className="text-sm sm:text-lg lg:text-xl max-w-4xl text-white">
             Empowering businesses with cutting-edge technology solutions that
             drive innovation, growth, and success.
           </p>

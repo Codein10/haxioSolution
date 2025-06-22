@@ -5,7 +5,7 @@ const Card = () => {
   return (
     <div>
       {/* Free Internship Heading */}
-      <section className="text-center py-8 bg-gradient-to-r from-blue-900 via-blue-300 to-blue-900">
+      <section className="text-center py-8 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900">
         <h1 className="text-4xl sm:text-5xl font-bold text-white">
           Free Internship Opportunities
         </h1>
@@ -15,7 +15,7 @@ const Card = () => {
       </section>
 
       {/* Cards Section */}
-      <section className="py-12 bg-gradient-to-r from-blue-900 via-blue-300 to-blue-900">
+      <section className="py-12 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Card 1 */}
           <div className="relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform hover:scale-105">
@@ -38,7 +38,7 @@ const Card = () => {
                 impactful projects!
               </p>
               <a
-                href="https://forms.gle/BX8qpZmqX5ZXvppv5"
+                href="https://forms.gle/9x4ZoHQ7QMbyH6w79"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-blue-500 hover:bg-blue-400 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300"
@@ -74,7 +74,7 @@ const Card = () => {
                 impactful projects!
               </p>
               <a
-                href="https://forms.gle/BX8qpZmqX5ZXvppv5"
+                href="https://forms.gle/9x4ZoHQ7QMbyH6w79"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-blue-500 hover:bg-blue-400 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300"
